@@ -1,7 +1,8 @@
 FROM php:8.3-cli
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        git libonig-dev libcurl4-openssl-dev libzip-dev unzip \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        git libonig-dev libcurl4-openssl-dev libzip-dev zlib1g-dev libsqlite3-dev unzip \
     && docker-php-ext-install mbstring curl zip pdo_sqlite \
     && rm -rf /var/lib/apt/lists/*
 
