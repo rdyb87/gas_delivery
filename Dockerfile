@@ -14,9 +14,11 @@ COPY . .
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN composer install --no-dev --prefer-dist --no-interaction --no-progress \
+RUN chmod -R 775 storage bootstrap/cache \
+    && composer install --no-dev --prefer-dist --no-interaction --no-progress --no-scripts --optimize-autoloader \
     && mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/app/qrcodes \
     && cp .env.example .env \
+    && php artisan package:discover --ansi \
     && php artisan key:generate --force \
     && php artisan config:clear
 
